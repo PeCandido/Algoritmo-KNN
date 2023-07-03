@@ -7,6 +7,7 @@ class Flor:
     petal_width = -1
     name = ""
 
+# Leitura do arquivo
 def ler_arquivo(nome_arq):
     flores = []
     arq = open(f"{nome_arq}", "r")
@@ -22,6 +23,7 @@ def ler_arquivo(nome_arq):
     arq.close()
     return flores
 
+# calculo da distância euclidiana 
 def calcular_distancia(flor_d, flor_c):
     sepal_length1 = flor_d.sepal_length
     sepal_width1 = flor_d.sepal_width
@@ -39,7 +41,8 @@ def calcular_distancia(flor_d, flor_c):
                             ((petal_width1 - petal_width2)**2))
     
     return dist_euclidiana
-            
+
+# Ordenação das distâncias em ordem crescente
 def organizar_especies(flores_desconhecidas, flores_conhecidas):
     nomes = []                  
     for flor_des in flores_desconhecidas:
@@ -56,6 +59,7 @@ def organizar_especies(flores_desconhecidas, flores_conhecidas):
 
     return ordenado
 
+# Análise das K distâncias mais próximas
 def frequencia(matriz, k):
     versicolor_cont = 0
     setosa_cont = 0
@@ -86,18 +90,17 @@ def frequencia(matriz, k):
 def main():
     flores_conhecida = ler_arquivo("iris.data.csv")
     try:
-        k = int(input("Valor K elementos (insira um valor numérico inteiro): "))
-        arquivo = input("Nome do arquivo: ")
+        k = int(input("Valor K elementos (insira um valor numérico inteiro): ")) # Entrada dos K elementos mais próximos
+        arquivo = input("Nome do arquivo: ") # Entrada do nome do arquivo sem o nome das espécies
         flores_desconhecida = ler_arquivo(arquivo)
     except:
         print("ERRO: não foi possivel realizar operação")
     else:
-        distancias = organizar_especies(flores_desconhecida, flores_conhecida)
+        distancias = organizar_especies(flores_desconhecida, flores_conhecida) 
         i = 0
         for dist in distancias:
             i += 1
             especie = frequencia(dist, k)
             print(f"Flor {i} é {especie}")
-            
-  
+
 main()
